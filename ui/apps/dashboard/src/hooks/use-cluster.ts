@@ -36,7 +36,9 @@ export type ClusterContextType = {
 
 export const ClusterContext = createContext<ClusterContextType>({
   currentCluster: 'control-plane',
-  setCurrentCluster: () => { },
+  setCurrentCluster: () => {
+    throw new Error('setCurrentCluster function must be used within a ClusterContext.Provider');
+  },
 });
 
 export const useCluster = () => {
