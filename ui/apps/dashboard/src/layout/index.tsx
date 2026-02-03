@@ -35,8 +35,9 @@ export const MainLayout: FC = () => {
   const isSmallScreen = width !== null && width <= 768;
   const { karmadaTerminalOpen, toggleKarmadaTerminal, setKarmadaTerminalOpen } =
     useGlobalStore();
+    const { token } = useAuth();
 
-  if (!authenticated) {
+    if (!authenticated) {
     return <Navigate to="/login" />;
   }
 
@@ -66,11 +67,11 @@ export const MainLayout: FC = () => {
           setKarmadaTerminalOpen(false);
         }}
       />
-      
-      <FloatingChat 
+
+      <FloatingChat
         apiConfig={{
           headers: {
-            'Authorization': `Bearer ${localStorage.getItem('token')}`
+            'Authorization': `Bearer ${token}`
           },
           chatEndpoint: '/api/v1/chat',
           toolsEndpoint: '/api/v1/chat/tools'
