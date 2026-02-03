@@ -25,7 +25,7 @@ import {
   TableColumnProps,
   Tag,
 } from 'antd';
-import { EyeOutlined, EditOutlined, DeleteOutlined, HddOutlined, CloudOutlined } from '@ant-design/icons';
+import { Icons } from '@/components/icons';
 import React from 'react';
 import { useMemberClusterContext, useMemberClusterNamespace } from '@/hooks';
 import { useState } from 'react';
@@ -78,15 +78,15 @@ export default function MemberClusterPersistentVolumeClaims() {
 
   const getStatusTag = (status: string) => {
     const statusConfig: Record<string, { color: string; icon: React.ReactNode }> = {
-      Bound: { color: 'success', icon: <HddOutlined /> },
-      Pending: { color: 'processing', icon: <CloudOutlined /> },
-      Lost: { color: 'error', icon: <HddOutlined /> },
-      Available: { color: 'default', icon: <HddOutlined /> },
+      Bound: { color: 'success', icon: <Icons.storage width={16} height={16} /> },
+      Pending: { color: 'processing', icon: <Icons.cloud width={16} height={16} /> },
+      Lost: { color: 'error', icon: <Icons.storage width={16} height={16} /> },
+      Available: { color: 'default', icon: <Icons.storage width={16} height={16} /> },
     };
 
     const config = statusConfig[status] || {
       color: 'default',
-      icon: <HddOutlined />,
+      icon: <Icons.storage width={16} height={16} />,
     };
 
     return (
@@ -209,7 +209,7 @@ export default function MemberClusterPersistentVolumeClaims() {
       render: (_: unknown, record: PersistentVolumeClaim) => (
         <Space>
           <Button
-            icon={<EyeOutlined />}
+            icon={<Icons.eye width={16} height={16} />}
             title="View PVC details"
             onClick={async () => {
               setViewLoading(true);
@@ -232,7 +232,7 @@ export default function MemberClusterPersistentVolumeClaims() {
             View
           </Button>
           <Button
-            icon={<EditOutlined />}
+            icon={<Icons.edit width={16} height={16} />}
             title="Edit PVC"
             onClick={async () => {
               try {
@@ -259,7 +259,7 @@ export default function MemberClusterPersistentVolumeClaims() {
             Edit
           </Button>
           <Button
-            icon={<DeleteOutlined />}
+            icon={<Icons.delete width={16} height={16} />}
             danger
             title="Delete PVC"
             disabled

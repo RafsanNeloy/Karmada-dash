@@ -25,13 +25,7 @@ import {
   Tag,
   Tooltip,
 } from 'antd';
-import {
-  EyeOutlined,
-  EditOutlined,
-  DeleteOutlined,
-  FolderOutlined,
-  ExclamationCircleOutlined,
-} from '@ant-design/icons';
+import { Icons } from '@/components/icons';
 import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useMemberClusterContext } from '@/hooks';
@@ -74,12 +68,12 @@ export default function MemberClusterNamespaces() {
 
   const getStatusTag = (phase: string) => {
     const statusConfig: Record<string, { color: string; icon: React.ReactNode }> = {
-      Active: { color: 'success', icon: <FolderOutlined /> },
-      Terminating: { color: 'error', icon: <ExclamationCircleOutlined /> },
+      Active: { color: 'success', icon: <Icons.folder width={16} height={16} /> },
+      Terminating: { color: 'error', icon: <Icons.exclamation width={16} height={16} /> },
     };
 
     const config =
-      statusConfig[phase] || { color: 'default', icon: <FolderOutlined /> };
+      statusConfig[phase] || { color: 'default', icon: <Icons.folder width={16} height={16} /> };
 
     return (
       <Tag color={config.color} icon={config.icon} className="inline-flex items-center gap-1.5">
@@ -167,7 +161,7 @@ export default function MemberClusterNamespaces() {
       render: (_: unknown, record: Namespace) => (
         <Space>
           <Button
-            icon={<EyeOutlined />}
+            icon={<Icons.eye width={16} height={16} />}
             title="View namespace details"
             onClick={async () => {
               setViewLoading(true);
@@ -188,7 +182,7 @@ export default function MemberClusterNamespaces() {
             View
           </Button>
           <Button
-            icon={<EditOutlined />}
+            icon={<Icons.edit width={16} height={16} />}
             title="Edit namespace (YAML)"
             onClick={async () => {
               try {
@@ -212,7 +206,7 @@ export default function MemberClusterNamespaces() {
             Edit
           </Button>
           <Button
-            icon={<DeleteOutlined />}
+            icon={<Icons.delete width={16} height={16} />}
             danger
             title="Delete namespace"
             disabled

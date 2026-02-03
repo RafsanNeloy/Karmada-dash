@@ -15,10 +15,10 @@ limitations under the License.
 */
 
 import { App, Button, Drawer, Input, Select, Space, Table, TableColumnProps } from 'antd';
-import { EditOutlined, EyeOutlined } from '@ant-design/icons';
+import { Icons } from '@/components/icons';
 import { useMemberClusterContext, useMemberClusterNamespace } from '@/hooks';
 import { useQuery } from '@tanstack/react-query';
-import { WorkloadKind } from '@/services';
+import { WorkloadKind } from '@/services/base';
 import { useState } from 'react';
 import {
   GetMemberClusterWorkloadDetail,
@@ -46,7 +46,7 @@ export default function MemberClusterCronJobs() {
     selectedWorkSpace: '',
     searchText: '',
   });
-  const { nsOptions, isNsDataLoading } = useMemberClusterNamespace({memberClusterName});
+  const { nsOptions, isNsDataLoading } = useMemberClusterNamespace({ memberClusterName });
   const [viewDrawerOpen, setViewDrawerOpen] = useState(false);
   const [viewDetail, setViewDetail] = useState<WorkloadDetail | null>(null);
   const [viewEvents, setViewEvents] = useState<WorkloadEvent[]>([]);
@@ -118,7 +118,7 @@ export default function MemberClusterCronJobs() {
       render: (_, record: Workload) => (
         <Space>
           <Button
-            icon={<EyeOutlined />}
+            icon={<Icons.eye width={16} height={16} />}
             title="View details"
             onClick={async () => {
               setViewLoading(true);
@@ -135,7 +135,7 @@ export default function MemberClusterCronJobs() {
                   name: record.objectMeta.name,
                   kind: WorkloadKind.Cronjob,
                 });
-                
+
 
                 setViewDetail((detailResp?.data ?? ({} as any)) as WorkloadDetail);
                 setViewEvents(eventsResp?.data?.events || []);
@@ -148,7 +148,7 @@ export default function MemberClusterCronJobs() {
             View
           </Button>
           <Button
-            icon={<EditOutlined />}
+            icon={<Icons.edit width={16} height={16} />}
             title="Edit CronJob"
             onClick={async () => {
               try {
@@ -255,8 +255,8 @@ export default function MemberClusterCronJobs() {
                 Created:{' '}
                 {viewDetail.objectMeta?.creationTimestamp
                   ? dayjs(viewDetail.objectMeta.creationTimestamp).format(
-                      'YYYY-MM-DD HH:mm:ss',
-                    )
+                    'YYYY-MM-DD HH:mm:ss',
+                  )
                   : '-'}
               </div>
               <div>

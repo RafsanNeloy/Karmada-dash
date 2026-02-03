@@ -15,13 +15,7 @@ limitations under the License.
 */
 
 import { Input, Table, Tag, Space, Tooltip, Button } from 'antd';
-import {
-  EyeOutlined,
-  ExclamationCircleOutlined,
-  InfoCircleOutlined,
-  WarningOutlined,
-  CheckCircleOutlined,
-} from '@ant-design/icons';
+import { Icons } from '@/components/icons';
 import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useMemberClusterContext } from '@/hooks';
@@ -55,12 +49,12 @@ export default function MemberClusterEvents() {
 
   const getTypeTag = (type: string) => {
     const typeConfig: Record<string, { color: string; icon: React.ReactNode }> = {
-      'Normal': { color: 'success', icon: <CheckCircleOutlined /> },
-      'Warning': { color: 'warning', icon: <WarningOutlined /> },
-      'Error': { color: 'error', icon: <ExclamationCircleOutlined /> }
+      'Normal': { color: 'success', icon: <Icons.checkCircle width={16} height={16} /> },
+      'Warning': { color: 'warning', icon: <Icons.warning width={16} height={16} /> },
+      'Error': { color: 'error', icon: <Icons.exclamation width={16} height={16} /> }
     };
 
-    const config = typeConfig[type] || { color: 'default', icon: <InfoCircleOutlined /> };
+    const config = typeConfig[type] || { color: 'default', icon: <Icons.info width={16} height={16} /> };
     return (
       <Tag color={config.color} icon={config.icon}>
         {type}
@@ -188,7 +182,7 @@ export default function MemberClusterEvents() {
       key: 'actions',
       render: () => (
         <Space>
-          <Button icon={<EyeOutlined />} title="View event details">
+          <Button icon={<Icons.eye width={16} height={16} />} title="View event details">
             View
           </Button>
         </Space>

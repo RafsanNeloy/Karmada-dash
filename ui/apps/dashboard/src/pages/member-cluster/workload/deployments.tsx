@@ -15,19 +15,19 @@ limitations under the License.
 */
 
 import { App, Button, Drawer, Input, Select, Space, Table, TableColumnProps } from 'antd';
-import { EditOutlined, EyeOutlined } from '@ant-design/icons';
+import { Icons } from '@/components/icons';
 import { useMemberClusterContext, useMemberClusterNamespace } from '@/hooks';
 import { useQuery } from '@tanstack/react-query';
-import { WorkloadKind } from '@/services';
+import { WorkloadKind } from '@/services/base';
 import { useState } from 'react';
 import {
-    GetMemberClusterWorkloadDetail,
-    GetMemberClusterWorkloadEvents,
-    GetMemberClusterWorkloads,
-    Workload,
-    WorkloadDetail,
-    WorkloadEvent,
- } from '@/services/member-cluster/workload';
+  GetMemberClusterWorkloadDetail,
+  GetMemberClusterWorkloadEvents,
+  GetMemberClusterWorkloads,
+  Workload,
+  WorkloadDetail,
+  WorkloadEvent,
+} from '@/services/member-cluster/workload';
 import i18nInstance from '@/utils/i18n';
 import dayjs from 'dayjs';
 import { stringify, parse } from 'yaml';
@@ -46,7 +46,7 @@ export default function MemberClusterDeployments() {
     selectedWorkSpace: '',
     searchText: '',
   });
-  const { nsOptions, isNsDataLoading } = useMemberClusterNamespace({memberClusterName,});
+  const { nsOptions, isNsDataLoading } = useMemberClusterNamespace({ memberClusterName, });
   const [viewDrawerOpen, setViewDrawerOpen] = useState(false);
   const [viewDetail, setViewDetail] = useState<WorkloadDetail | null>(null);
   const [viewEvents, setViewEvents] = useState<WorkloadEvent[]>([]);
@@ -123,7 +123,7 @@ export default function MemberClusterDeployments() {
       render: (_, record: Workload) => (
         <Space>
           <Button
-            icon={<EyeOutlined />}
+            icon={<Icons.eye width={16} height={16} />}
             title="View details"
             onClick={async () => {
               setViewLoading(true);
@@ -151,7 +151,7 @@ export default function MemberClusterDeployments() {
             View
           </Button>
           <Button
-            icon={<EditOutlined />}
+            icon={<Icons.edit width={16} height={16} />}
             title="Edit deployment"
             onClick={async () => {
               try {
@@ -177,7 +177,7 @@ export default function MemberClusterDeployments() {
             Edit
           </Button>
           {/* 
-          <Button icon={<DeleteOutlined />}  danger title="Delete deployment">
+          <Button icon={<Icons.delete width={16} height={16} />}  danger title="Delete deployment">
           Delete
           </Button> */}
         </Space>
@@ -235,8 +235,8 @@ export default function MemberClusterDeployments() {
               `${range[0]}-${range[1]} of ${total} deployments`,
           }}
           // scroll={{ y: 'calc(100vh - 400px)' }}
-           loading={isLoading}
-         />
+          loading={isLoading}
+        />
       </div>
 
       <Drawer
@@ -262,8 +262,8 @@ export default function MemberClusterDeployments() {
                 Created:{' '}
                 {viewDetail.objectMeta?.creationTimestamp
                   ? dayjs(viewDetail.objectMeta.creationTimestamp).format(
-                      'YYYY-MM-DD HH:mm:ss',
-                    )
+                    'YYYY-MM-DD HH:mm:ss',
+                  )
                   : '-'}
               </div>
               <div>

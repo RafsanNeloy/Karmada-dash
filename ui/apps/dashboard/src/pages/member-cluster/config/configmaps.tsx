@@ -26,7 +26,7 @@ import {
   Tag,
   Tooltip,
 } from 'antd';
-import { EyeOutlined, EditOutlined, DeleteOutlined, FileTextOutlined } from '@ant-design/icons';
+import { Icons } from '@/components/icons';
 
 import { useMemberClusterContext, useMemberClusterNamespace } from '@/hooks';
 import { useState } from 'react';
@@ -88,21 +88,21 @@ export default function MemberClusterConfigMaps() {
     if (keys.length === 1) {
       return (
         <div className="flex items-center gap-1">
-          <FileTextOutlined className="text-blue-500" />
+          <Icons.page width={16} height={16} className="text-blue-500" />
           <code className="text-xs">{keys[0]}</code>
         </div>
       );
     }
 
-    return (
-      <Tooltip title={keys.join(', ')}>
-        <div className="flex items-center gap-1">
-          <FileTextOutlined className="text-blue-500" />
-          <code className="text-xs">{keys[0]}</code>
-          <Tag color="blue">+{keys.length - 1}</Tag>
-        </div>
-      </Tooltip>
-    );
+      return (
+        <Tooltip title={keys.join(', ')}>
+          <div className="flex items-center gap-1">
+            <Icons.page width={16} height={16} className="text-blue-500" />
+            <code className="text-xs">{keys[0]}</code>
+            <Tag color="blue">+{keys.length - 1}</Tag>
+          </div>
+        </Tooltip>
+      );
   };
 
   const formatLabels = (cm: ConfigMap) => {
@@ -178,7 +178,7 @@ export default function MemberClusterConfigMaps() {
       render: (_: unknown, record: ConfigMap) => (
         <Space>
           <Button
-            icon={<EyeOutlined />}
+            icon={<Icons.eye width={16} height={16} />}
             title="View ConfigMap data"
             onClick={async () => {
               setViewLoading(true);
@@ -201,7 +201,7 @@ export default function MemberClusterConfigMaps() {
             View
           </Button>
           <Button
-            icon={<EditOutlined />}
+            icon={<Icons.edit width={16} height={16} />}
             title="Edit ConfigMap"
             onClick={async () => {
               try {
@@ -228,7 +228,7 @@ export default function MemberClusterConfigMaps() {
             Edit
           </Button>
           <Button
-            icon={<DeleteOutlined />}
+            icon={<Icons.delete width={16} height={16} />}
             danger
             title="Delete ConfigMap"
             disabled

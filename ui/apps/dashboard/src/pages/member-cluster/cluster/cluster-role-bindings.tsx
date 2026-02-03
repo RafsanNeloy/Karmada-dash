@@ -25,7 +25,7 @@ import {
   Tag,
   Tooltip,
 } from 'antd';
-import { EyeOutlined, EditOutlined, DeleteOutlined, TeamOutlined, SafetyCertificateOutlined } from '@ant-design/icons';
+import { Icons } from '@/components/icons';
 import { useMemberClusterContext } from '@/hooks';
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
@@ -78,9 +78,9 @@ export default function MemberClusterClusterRoleBindings() {
     };
 
     const kindIcons: Record<string, React.ReactNode> = {
-      'User': <TeamOutlined />,
-      'Group': <TeamOutlined />,
-      'ServiceAccount': <SafetyCertificateOutlined />
+      'User': <Icons.team width={16} height={16} />,
+      'Group': <Icons.team width={16} height={16} />,
+      'ServiceAccount': <Icons.certificate width={16} height={16} />
     };
 
     return (
@@ -135,7 +135,7 @@ export default function MemberClusterClusterRoleBindings() {
     return (
       <Tag
         color={kindColors[roleRef.kind] || 'default'}
-        icon={<SafetyCertificateOutlined />}
+        icon={<Icons.certificate width={16} height={16} />}
       >
         {roleRef.name} ({roleRef.kind})
       </Tag>
@@ -215,7 +215,7 @@ export default function MemberClusterClusterRoleBindings() {
       render: (_: unknown, record: ClusterRoleBinding) => (
         <Space>
           <Button
-            icon={<EyeOutlined />}
+            icon={<Icons.eye width={16} height={16} />}
             title="View ClusterRoleBinding details"
             onClick={async () => {
               setViewLoading(true);
@@ -237,7 +237,7 @@ export default function MemberClusterClusterRoleBindings() {
             View
           </Button>
           <Button
-            icon={<EditOutlined />}
+            icon={<Icons.edit width={16} height={16} />}
             title="Edit ClusterRoleBinding"
             onClick={async () => {
               try {
@@ -263,7 +263,7 @@ export default function MemberClusterClusterRoleBindings() {
             Edit
           </Button>
           <Button
-            icon={<DeleteOutlined />}
+            icon={<Icons.delete width={16} height={16} />}
             danger
             title="Delete ClusterRoleBinding"
             disabled

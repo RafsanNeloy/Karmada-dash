@@ -25,7 +25,7 @@ import {
   Tag,
   Tooltip,
 } from 'antd';
-import { EyeOutlined, EditOutlined, DeleteOutlined, SafetyCertificateOutlined } from '@ant-design/icons';
+import { Icons } from '@/components/icons';
 import { useMemberClusterContext } from '@/hooks';
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
@@ -181,7 +181,7 @@ export default function MemberClusterClusterRoles() {
           return <span className="text-gray-400">-</span>;
         }
         return (
-          <Tag color="orange" icon={<SafetyCertificateOutlined />}>
+          <Tag color="orange" icon={<Icons.certificate width={16} height={16} />}>
             {count} rules
           </Tag>
         );
@@ -214,7 +214,7 @@ export default function MemberClusterClusterRoles() {
       render: (_: unknown, record: ClusterRole) => (
         <Space>
           <Button
-            icon={<EyeOutlined />}
+            icon={<Icons.eye width={16} height={16} />}
             title="View ClusterRole details"
             onClick={async () => {
               setViewLoading(true);
@@ -236,7 +236,7 @@ export default function MemberClusterClusterRoles() {
             View
           </Button>
           <Button
-            icon={<EditOutlined />}
+            icon={<Icons.edit width={16} height={16} />}
             title="Edit ClusterRole"
             onClick={async () => {
               try {
@@ -262,7 +262,7 @@ export default function MemberClusterClusterRoles() {
             Edit
           </Button>
           <Button
-            icon={<DeleteOutlined />}
+            icon={<Icons.delete width={16} height={16} />}
             danger
             title="Delete ClusterRole"
             disabled

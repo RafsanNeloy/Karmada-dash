@@ -26,13 +26,7 @@ import {
   Tag,
   Tooltip,
 } from 'antd';
-import {
-  ApiOutlined,
-  DeleteOutlined,
-  EditOutlined,
-  EyeOutlined,
-  GlobalOutlined,
-} from '@ant-design/icons';
+import { Icons } from '@/components/icons';
 import React from 'react';
 import { useMemberClusterContext, useMemberClusterNamespace } from '@/hooks';
 import { useState } from 'react';
@@ -48,7 +42,7 @@ import dayjs from 'dayjs';
 import { stringify, parse } from 'yaml';
 import Editor from '@monaco-editor/react';
 import { GetResource, PutResource } from '@/services/member-cluster/unstructured';
-import {Event} from '@/services/member-cluster/event'
+import { Event } from '@/services/member-cluster/event'
 export default function MemberClusterServices() {
   const { message: messageApi } = App.useApp();
   const { memberClusterName } = useMemberClusterContext();
@@ -61,7 +55,7 @@ export default function MemberClusterServices() {
     searchText: '',
   });
 
-  const { nsOptions, isNsDataLoading } = useMemberClusterNamespace({memberClusterName});
+  const { nsOptions, isNsDataLoading } = useMemberClusterNamespace({ memberClusterName });
 
   const [viewDrawerOpen, setViewDrawerOpen] = useState(false);
   const [viewDetail, setViewDetail] = useState<Service | null>(null);
@@ -93,10 +87,10 @@ export default function MemberClusterServices() {
     };
 
     const typeIcons: Record<string, React.ReactNode> = {
-      'ClusterIP': <Icons.api width={16} height={16} style={{'display': 'inline-block'}} />,
-      'NodePort': <Icons.global width={16} height={16} style={{'display': 'inline-block'}}  />,
-      'LoadBalancer': <Icons.global width={16} height={16} style={{'display': 'inline-block'}} />,
-      'ExternalName': <Icons.global width={16} height={16} style={{'display': 'inline-block'}} />
+      'ClusterIP': <Icons.api width={16} height={16} />,
+      'NodePort': <Icons.global width={16} height={16} />,
+      'LoadBalancer': <Icons.global width={16} height={16} />,
+      'ExternalName': <Icons.global width={16} height={16} />
     };
 
     return <Tag color={typeColors[type] || 'default'} icon={typeIcons[type]} className="inline-flex items-center gap-1.5">
@@ -245,7 +239,7 @@ export default function MemberClusterServices() {
       render: (_: unknown, record: Service) => (
         <Space>
           <Button
-            icon={<EyeOutlined />}
+            icon={<Icons.eye width={16} height={16} />}
             title="View details"
             onClick={async () => {
               // Pre-fill basic info from list row so drawer always has content
@@ -276,7 +270,7 @@ export default function MemberClusterServices() {
             View
           </Button>
           <Button
-            icon={<EditOutlined />}
+            icon={<Icons.edit width={16} height={16} />}
             title="Edit Service"
             onClick={async () => {
               try {
@@ -302,7 +296,7 @@ export default function MemberClusterServices() {
             Edit
           </Button>
           <Button
-            icon={<DeleteOutlined />}
+            icon={<Icons.delete width={16} height={16} />}
             danger
             title="Delete Service"
             disabled
@@ -386,8 +380,8 @@ export default function MemberClusterServices() {
                 Created:{' '}
                 {viewDetail.objectMeta?.creationTimestamp
                   ? dayjs(viewDetail.objectMeta.creationTimestamp).format(
-                      'YYYY-MM-DD HH:mm:ss',
-                    )
+                    'YYYY-MM-DD HH:mm:ss',
+                  )
                   : '-'}
               </div>
             </div>

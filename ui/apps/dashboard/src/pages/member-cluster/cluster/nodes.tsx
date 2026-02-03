@@ -25,14 +25,7 @@ import {
   Tag,
   Progress,
 } from 'antd';
-import {
-  EyeOutlined,
-  EditOutlined,
-  DeleteOutlined,
-  LaptopOutlined,
-  WarningOutlined,
-  CheckCircleOutlined,
-} from '@ant-design/icons';
+import { Icons } from '@/components/icons';
 import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useMemberClusterContext } from '@/hooks';
@@ -69,13 +62,13 @@ export default function MemberClusterNodes() {
 
   const getStatusTag = (ready: string) => {
     const statusConfig: Record<string, { color: string; icon: React.ReactNode }> = {
-      True: { color: 'success', icon: <CheckCircleOutlined /> },
-      False: { color: 'error', icon: <WarningOutlined /> },
-      Unknown: { color: 'default', icon: <WarningOutlined /> },
+      True: { color: 'success', icon: <Icons.checkCircle width={16} height={16} /> },
+      False: { color: 'error', icon: <Icons.warning width={16} height={16} /> },
+      Unknown: { color: 'default', icon: <Icons.warning width={16} height={16} /> },
     };
 
     const config =
-      statusConfig[ready] || { color: 'default', icon: <WarningOutlined /> };
+      statusConfig[ready] || { color: 'default', icon: <Icons.warning width={16} height={16} /> };
 
     const label =
       ready === 'True' ? 'Ready' : ready === 'False' ? 'NotReady' : 'Unknown';
@@ -171,7 +164,7 @@ export default function MemberClusterNodes() {
       key: 'name',
       render: (_: string, record: Node) => (
         <div className="flex items-center gap-2">
-          <LaptopOutlined className="text-blue-500" />
+          <Icons.laptop width={16} height={16} className="text-blue-500" />
           <strong>{record.objectMeta.name}</strong>
         </div>
       ),
@@ -232,7 +225,7 @@ export default function MemberClusterNodes() {
       render: (_: unknown, record: Node) => (
         <Space>
           <Button
-            icon={<EyeOutlined />}
+            icon={<Icons.eye width={16} height={16} />}
             title="View node details"
             onClick={async () => {
               setViewLoading(true);
@@ -252,11 +245,11 @@ export default function MemberClusterNodes() {
           >
             View
           </Button>
-          <Button icon={<EditOutlined />} title="Edit node" disabled>
+          <Button icon={<Icons.edit width={16} height={16} />} title="Edit node" disabled>
             Edit
           </Button>
           <Button
-            icon={<DeleteOutlined />}
+            icon={<Icons.delete width={16} height={16} />}
             danger
             title="Drain node"
             disabled

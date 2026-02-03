@@ -25,7 +25,7 @@ import {
   Tag,
   Tooltip,
 } from 'antd';
-import { EyeOutlined, EditOutlined, DeleteOutlined, HddOutlined, CloudOutlined } from '@ant-design/icons';
+import { Icons } from '@/components/icons';
 import { useMemberClusterContext } from '@/hooks';
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
@@ -70,13 +70,13 @@ export default function MemberClusterPersistentVolumes() {
 
   const getStatusTag = (status: string) => {
     const statusConfig: Record<string, { color: string; icon: React.ReactNode }> = {
-      'Available': { color: 'default', icon: <CloudOutlined /> },
-      'Bound': { color: 'success', icon: <HddOutlined /> },
-      'Released': { color: 'warning', icon: <HddOutlined /> },
-      'Failed': { color: 'error', icon: <HddOutlined /> }
+      'Available': { color: 'default', icon: <Icons.cloud width={16} height={16} /> },
+      'Bound': { color: 'success', icon: <Icons.storage width={16} height={16} /> },
+      'Released': { color: 'warning', icon: <Icons.storage width={16} height={16} /> },
+      'Failed': { color: 'error', icon: <Icons.storage width={16} height={16} /> }
     };
 
-    const config = statusConfig[status] || { color: 'default', icon: <HddOutlined /> };
+    const config = statusConfig[status] || { color: 'default', icon: <Icons.storage width={16} height={16} /> };
     return (
       <Tag color={config.color} icon={config.icon}>
         {status}
@@ -250,7 +250,7 @@ export default function MemberClusterPersistentVolumes() {
       render: (_: unknown, record: PersistentVolume) => (
         <Space>
           <Button
-            icon={<EyeOutlined />}
+            icon={<Icons.eye width={16} height={16} />}
             title="View PersistentVolume details"
             onClick={async () => {
               setViewLoading(true);
@@ -272,7 +272,7 @@ export default function MemberClusterPersistentVolumes() {
             View
           </Button>
           <Button
-            icon={<EditOutlined />}
+            icon={<Icons.edit width={16} height={16} />}
             title="Edit PersistentVolume"
             onClick={async () => {
               try {
@@ -298,7 +298,7 @@ export default function MemberClusterPersistentVolumes() {
             Edit
           </Button>
           <Button
-            icon={<DeleteOutlined />}
+            icon={<Icons.delete width={16} height={16} />}
             danger
             title="Delete PersistentVolume"
             disabled={record.status === 'Bound'}

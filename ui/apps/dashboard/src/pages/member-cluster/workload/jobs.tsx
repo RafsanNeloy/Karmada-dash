@@ -15,10 +15,10 @@ limitations under the License.
 */
 
 import { App, Button, Drawer, Input, Select, Space, Table, TableColumnProps } from 'antd';
-import { EditOutlined, EyeOutlined } from '@ant-design/icons';
+import { Icons } from '@/components/icons';
 import { useMemberClusterContext, useMemberClusterNamespace } from '@/hooks';
 import { useQuery } from '@tanstack/react-query';
-import { WorkloadKind } from '@/services';
+import { WorkloadKind } from '@/services/base';
 import { useState } from 'react';
 import {
   GetMemberClusterWorkloadDetail,
@@ -120,7 +120,7 @@ export default function MemberClusterJobs() {
       render: (_, record: Workload) => (
         <Space>
           <Button
-            icon={<EyeOutlined />}
+            icon={<Icons.eye width={16} height={16} />}
             title="View details"
             onClick={async () => {
               setViewLoading(true);
@@ -149,7 +149,7 @@ export default function MemberClusterJobs() {
             View
           </Button>
           <Button
-            icon={<EditOutlined />}
+            icon={<Icons.edit width={16} height={16} />}
             title="Edit Job"
             onClick={async () => {
               try {
@@ -256,8 +256,8 @@ export default function MemberClusterJobs() {
                 Created:{' '}
                 {viewDetail.objectMeta?.creationTimestamp
                   ? dayjs(viewDetail.objectMeta.creationTimestamp).format(
-                      'YYYY-MM-DD HH:mm:ss',
-                    )
+                    'YYYY-MM-DD HH:mm:ss',
+                  )
                   : '-'}
               </div>
               <div>

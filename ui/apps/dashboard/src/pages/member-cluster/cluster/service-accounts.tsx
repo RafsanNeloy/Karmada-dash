@@ -15,7 +15,7 @@ limitations under the License.
 */
 
 import { App, Button, Drawer, Input, Select, Space, Table, TableColumnProps, Tag, Tooltip } from 'antd';
-import { EyeOutlined, EditOutlined, DeleteOutlined, SafetyCertificateOutlined, KeyOutlined } from '@ant-design/icons';
+import { Icons } from '@/components/icons';
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useMemberClusterContext, useMemberClusterNamespace } from '@/hooks';
@@ -64,7 +64,7 @@ export default function MemberClusterServiceAccounts() {
       return <Tag color="default">Unknown</Tag>;
     }
     return automount ? (
-      <Tag color="green" icon={<KeyOutlined />}>
+      <Tag color="green" icon={<Icons.key width={16} height={16} />}>
         Enabled
       </Tag>
     ) : (
@@ -97,7 +97,7 @@ export default function MemberClusterServiceAccounts() {
     const names = secrets.map((s) => s.name);
     if (names.length === 1) {
       return (
-        <Tag color="purple" icon={<SafetyCertificateOutlined />}>
+          <Tag color="purple" icon={<Icons.certificate width={16} height={16} />}>
           {names[0]}
         </Tag>
       );
@@ -105,7 +105,7 @@ export default function MemberClusterServiceAccounts() {
     return (
       <Tooltip title={names.join(', ')}>
         <div className="flex items-center gap-1">
-          <Tag color="purple" icon={<SafetyCertificateOutlined />}>
+        <Tag color="purple" icon={<Icons.certificate width={16} height={16} />}>
             {names[0]}
           </Tag>
           <Tag color="cyan">+{names.length - 1}</Tag>
@@ -151,7 +151,7 @@ export default function MemberClusterServiceAccounts() {
       key: 'name',
       render: (_: string, record: ServiceAccount) => (
         <div className="flex items-center gap-2">
-          <SafetyCertificateOutlined className="text-blue-500" />
+          <Icons.certificate className="text-blue-500" width={16} height={16} />
           <strong>{record.objectMeta.name}</strong>
         </div>
       ),
@@ -202,7 +202,7 @@ export default function MemberClusterServiceAccounts() {
       render: (_: unknown, record: ServiceAccount) => (
         <Space>
           <Button
-            icon={<EyeOutlined />}
+            icon={<Icons.eye width={16} height={16} />}
             title="View ServiceAccount Secret details"
             onClick={() => {
               setViewLoading(true);
@@ -219,7 +219,7 @@ export default function MemberClusterServiceAccounts() {
             View
           </Button>
           <Button
-            icon={<EditOutlined />}
+            icon={<Icons.edit width={16} height={16} />}
             title="Edit ServiceAccount Secret (YAML)"
             onClick={async () => {
               try {
@@ -243,7 +243,7 @@ export default function MemberClusterServiceAccounts() {
             Edit
           </Button>
           <Button
-            icon={<DeleteOutlined />}
+            icon={<Icons.delete width={16} height={16} />}
             danger
             title="Delete ServiceAccount Secret"
             disabled

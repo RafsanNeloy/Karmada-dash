@@ -15,7 +15,7 @@ limitations under the License.
 */
 
 import { App, Button, Drawer, Input, Select, Space, Table, TableColumnProps, Tag, Tooltip } from 'antd';
-import { EditOutlined, EyeOutlined, LinkOutlined, LockOutlined } from '@ant-design/icons';
+import { Icons } from '@/components/icons';
 import { useMemberClusterContext, useMemberClusterNamespace } from '@/hooks';
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
@@ -25,7 +25,7 @@ import {
   GetMemberClusterIngressEvents,
   Ingress,
 } from '@/services/member-cluster/service';
-import {Event} from '@/services/member-cluster/event'
+import { Event } from '@/services/member-cluster/event'
 import i18nInstance from '@/utils/i18n';
 import dayjs from 'dayjs';
 import { stringify, parse } from 'yaml';
@@ -42,7 +42,7 @@ export default function MemberClusterIngress() {
     selectedWorkSpace: '',
     searchText: '',
   });
-  const { nsOptions, isNsDataLoading } = useMemberClusterNamespace({memberClusterName});
+  const { nsOptions, isNsDataLoading } = useMemberClusterNamespace({ memberClusterName });
 
   const [viewDrawerOpen, setViewDrawerOpen] = useState(false);
   const [viewDetail, setViewDetail] = useState<Ingress | null>(null);
@@ -66,14 +66,14 @@ export default function MemberClusterIngress() {
   });
 
   const getStatusTag = (address: string) => {
-    return address ? 
-      <Tag color="green" icon={<LinkOutlined />}>Ready</Tag> : 
+    return address ?
+      <Tag color="green" icon={<Icons.link width={16} height={16} />}>Ready</Tag> :
       <Tag color="orange">Pending</Tag>;
   };
 
   const getTlsTag = (tls: boolean) => {
-    return tls ? 
-      <Tag color="blue" icon={<LockOutlined />}>TLS</Tag> : 
+    return tls ?
+      <Tag color="blue" icon={<Icons.lock width={16} height={16} />}>TLS</Tag> :
       <Tag color="default">HTTP</Tag>;
   };
 
@@ -81,16 +81,16 @@ export default function MemberClusterIngress() {
     if (hosts.length === 1) {
       return <code className="text-xs">{hosts[0]}</code>;
     }
-    
+
     const displayHost = hosts[0];
     const remainingCount = hosts.length - 1;
-    
+
     return (
       <Tooltip title={hosts.join(', ')}>
         <div className="flex items-center gap-1">
           <code className="text-xs">{displayHost}</code>
           {remainingCount > 0 && (
-            <Tag  color="blue">+{remainingCount}</Tag>
+            <Tag color="blue">+{remainingCount}</Tag>
           )}
         </div>
       </Tooltip>
@@ -158,7 +158,7 @@ export default function MemberClusterIngress() {
       render: (_: boolean, record: Ingress) =>
         getTlsTag(
           record.objectMeta.annotations?.['ingress.kubernetes.io/ssl-redirect'] ===
-            'true',
+          'true',
         ),
     },
     {
@@ -191,7 +191,7 @@ export default function MemberClusterIngress() {
       render: (_: unknown, record: Ingress) => (
         <Space>
           <Button
-            icon={<EyeOutlined />}
+            icon={<Icons.eye width={16} height={16} />}
             title="View details"
             onClick={async () => {
               setViewLoading(true);
@@ -218,18 +218,19 @@ export default function MemberClusterIngress() {
             View
           </Button>
           <Button
-            icon={<EditOutlined />}
+            icon={<Icons.edit width={16} height={16} />}
             title="Edit Ingress"
             onClick={async () => {
               try {
                 const ret = await GetResource({
+                  memberClusterName,
                   kind: record.typeMeta.kind,
                   name: record.objectMeta.name,
                   namespace: record.objectMeta.namespace,
                 });
 
-                if (ret.code !== 200) {
-                  void messageApi.error(ret.message || 'Failed to load Ingress');
+                if (ret.status !== 200) {
+                  void messageApi.error('Failed to load Ingress');
                   return;
                 }
 
@@ -322,8 +323,8 @@ export default function MemberClusterIngress() {
                 Created:{' '}
                 {viewDetail.objectMeta?.creationTimestamp
                   ? dayjs(viewDetail.objectMeta.creationTimestamp).format(
-                      'YYYY-MM-DD HH:mm:ss',
-                    )
+                    'YYYY-MM-DD HH:mm:ss',
+                  )
                   : '-'}
               </div>
             </div>
@@ -389,6 +390,7 @@ export default function MemberClusterIngress() {
                   const namespace = metadata.namespace || '';
 
                   const ret = await PutResource({
+                    memberClusterName,
                     kind,
                     name,
                     namespace,

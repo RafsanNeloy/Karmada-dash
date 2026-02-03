@@ -18,25 +18,7 @@ import { FC, Key, ReactNode } from 'react';
 import type { MenuProps } from 'antd';
 import { Menu } from 'antd';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import {
-  ApiOutlined,
-  AuditOutlined,
-  CloudServerOutlined,
-  ClusterOutlined,
-  ContainerOutlined,
-  ControlOutlined,
-  DatabaseOutlined,
-  DeploymentUnitOutlined,
-  FileTextOutlined,
-  FolderOutlined,
-  GlobalOutlined,
-  LockOutlined,
-  NodeIndexOutlined,
-  SafetyCertificateOutlined,
-  ScheduleOutlined,
-  SettingOutlined,
-  TeamOutlined,
-} from '@ant-design/icons';
+
 import { Icons } from '@/components/icons'
 import { cn } from '@/utils/cn';
 
@@ -79,57 +61,57 @@ const MemberClusterSidebar: FC<MemberClusterSidebarProps> = () => {
 
   const menuItems: MenuItem[] = [
     getMenuItem('Overview', 'overview', <Icons.panelsTopLeft width={16} height={16} />),
-    getMenuItem('Workload', 'workload-group', <DeploymentUnitOutlined />, [
-      getMenuItem('CronJobs', 'workload/cronjobs', <ScheduleOutlined />),
-      getMenuItem('DaemonSets', 'workload/daemonsets', <ControlOutlined />),
-      getMenuItem('Deployments', 'workload/deployments', <ContainerOutlined />),
-      getMenuItem('Jobs', 'workload/jobs', <ControlOutlined />),
+    getMenuItem('Workload', 'workload-group', <Icons.deployment width={16} height={16} />, [
+      getMenuItem('CronJobs', 'workload/cronjobs', <Icons.schedule width={16} height={16} />),
+      getMenuItem('DaemonSets', 'workload/daemonsets', <Icons.control width={16} height={16} />),
+      getMenuItem('Deployments', 'workload/deployments', <Icons.container width={16} height={16} />),
+      getMenuItem('Jobs', 'workload/jobs', <Icons.control width={16} height={16} />),
     ]),
 
-    getMenuItem('Service', 'service-group', <GlobalOutlined />, [
-      getMenuItem('Ingress', 'service/ingress', <CloudServerOutlined />),
-      getMenuItem('Services', 'service/services', <ApiOutlined />),
+    getMenuItem('Service', 'service-group', <Icons.global width={16} height={16} />, [
+      getMenuItem('Ingress', 'service/ingress', <Icons.cloudServer width={16} height={16} />),
+      getMenuItem('Services', 'service/services', <Icons.api width={16} height={16} />),
     ]),
 
-    getMenuItem('Config & Storage', 'config-group', <DatabaseOutlined />, [
-      getMenuItem('ConfigMaps', 'config/configmaps', <FileTextOutlined />),
+    getMenuItem('Config & Storage', 'config-group', <Icons.database width={16} height={16} />, [
+      getMenuItem('ConfigMaps', 'config/configmaps', <Icons.page width={16} height={16} />),
       getMenuItem(
         'Persistent Volume Claims',
         'config/persistent-volume-claims',
-        <DatabaseOutlined />,
+        <Icons.database width={16} height={16} />,
       ),
-      getMenuItem('Secrets', 'config/secrets', <LockOutlined />),
+      getMenuItem('Secrets', 'config/secrets', <Icons.lock width={16} height={16} />),
     ]),
 
-    getMenuItem('Cluster', 'cluster-group', <ClusterOutlined />, [
+    getMenuItem('Cluster', 'cluster-group', <Icons.clusters width={16} height={16} />, [
       getMenuItem(
         'Cluster Role Bindings',
         'cluster/cluster-role-bindings',
-        <SafetyCertificateOutlined />,
+        <Icons.certificate width={16} height={16} />,
       ),
       getMenuItem(
         'Cluster Roles',
         'cluster/cluster-roles',
-        <SettingOutlined />,
+        <Icons.settings width={16} height={16} />,
       ),
-      getMenuItem('Events', 'cluster/events', <AuditOutlined />),
-      getMenuItem('Namespaces', 'cluster/namespaces', <FolderOutlined />),
-      getMenuItem('Nodes', 'cluster/nodes', <NodeIndexOutlined />),
+      getMenuItem('Events', 'cluster/events', <Icons.audit width={16} height={16} />),
+      getMenuItem('Namespaces', 'cluster/namespaces', <Icons.folder width={16} height={16} />),
+      getMenuItem('Nodes', 'cluster/nodes', <Icons.node width={16} height={16} />),
       getMenuItem(
         'Persistent Volumes',
         'cluster/persistent-volumes',
-        <DatabaseOutlined />,
+        <Icons.database width={16} height={16} />,
       ),
       getMenuItem(
         'Role Bindings',
         'cluster/role-bindings',
-        <SafetyCertificateOutlined />,
+        <Icons.certificate width={16} height={16} />,
       ),
-      getMenuItem('Roles', 'cluster/roles', <SettingOutlined />),
+      getMenuItem('Roles', 'cluster/roles', <Icons.settings width={16} height={16} />),
       getMenuItem(
         'Service Accounts',
         'cluster/service-accounts',
-        <TeamOutlined />,
+        <Icons.team width={16} height={16} />,
       ),
     ]),
   ];

@@ -26,15 +26,7 @@ import {
   Tag,
   Tooltip,
 } from 'antd';
-import {
-  EyeOutlined,
-  EditOutlined,
-  DeleteOutlined,
-  LockOutlined,
-  KeyOutlined,
-  SafetyCertificateOutlined,
-  DatabaseOutlined,
-} from '@ant-design/icons';
+import { Icons } from '@/components/icons';
 import React from 'react';
 import { useMemberClusterContext, useMemberClusterNamespace } from '@/hooks';
 import { useState } from 'react';
@@ -86,24 +78,24 @@ export default function MemberClusterSecrets() {
 
   const getTypeTag = (type: string) => {
     const typeConfig: Record<string, { color: string; icon: React.ReactNode }> = {
-      Opaque: { color: 'blue', icon: <LockOutlined /> },
+      Opaque: { color: 'blue', icon: <Icons.lock width={16} height={16} /> },
       'kubernetes.io/tls': {
         color: 'green',
-        icon: <SafetyCertificateOutlined />,
+        icon: <Icons.certificate width={16} height={16} />,
       },
       'kubernetes.io/dockerconfigjson': {
         color: 'purple',
-        icon: <DatabaseOutlined />,
+        icon: <Icons.database width={16} height={16} />,
       },
       'kubernetes.io/service-account-token': {
         color: 'orange',
-        icon: <KeyOutlined />,
+        icon: <Icons.key width={16} height={16} />,
       },
     };
 
     const config = typeConfig[type] || {
       color: 'default',
-      icon: <LockOutlined />,
+      icon: <Icons.lock width={16} height={16} />,
     };
 
     return (
@@ -125,7 +117,7 @@ export default function MemberClusterSecrets() {
     if (keys.length === 1) {
       return (
         <div className="flex items-center gap-1">
-          <KeyOutlined className="text-blue-500" />
+          <Icons.key width={16} height={16} className="text-blue-500" />
           <code className="text-xs">{keys[0]}</code>
         </div>
       );
@@ -134,7 +126,7 @@ export default function MemberClusterSecrets() {
     return (
       <Tooltip title={keys.join(', ')}>
         <div className="flex items-center gap-1">
-          <KeyOutlined className="text-blue-500" />
+          <Icons.key width={16} height={16} className="text-blue-500" />
           <code className="text-xs">{keys[0]}</code>
           <Tag color="blue">+{keys.length - 1}</Tag>
         </div>
@@ -221,7 +213,7 @@ export default function MemberClusterSecrets() {
       render: (_: unknown, record: Secret) => (
         <Space>
           <Button
-            icon={<EyeOutlined />}
+            icon={<Icons.eye width={16} height={16} />}
             title="View Secret details"
             onClick={async () => {
               setViewLoading(true);
@@ -244,7 +236,7 @@ export default function MemberClusterSecrets() {
             View
           </Button>
           <Button
-            icon={<EditOutlined />}
+            icon={<Icons.edit width={16} height={16} />}
             title="Edit Secret"
             onClick={async () => {
               try {
@@ -269,7 +261,7 @@ export default function MemberClusterSecrets() {
             Edit
           </Button>
           <Button
-            icon={<DeleteOutlined />}
+            icon={<Icons.delete width={16} height={16} />}
             danger
             title="Delete Secret"
             disabled
