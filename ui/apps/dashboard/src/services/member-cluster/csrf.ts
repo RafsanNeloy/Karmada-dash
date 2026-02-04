@@ -1,5 +1,5 @@
 /*
-Copyright 2024 The Karmada Authors.
+Copyright 2026 The Karmada Authors.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -14,7 +14,15 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-export { default as useNamespace } from './use-namespace';
-export { default as useTagNum } from './use-tag-num';
-export { useCluster, useClusters, ClusterContext, useMemberClusterContext } from './use-cluster';
-export { default as useMemberClusterNamespace } from './use-membercluster-namespace';
+import { karmadaMemberClusterClient } from '../base';
+
+export interface CSRFToken {
+  token: string;
+}
+
+export async function GetCSRFToken(action: string) {
+  const resp = await karmadaMemberClusterClient.get<CSRFToken>(
+    `/csrftoken/${action}`
+  );
+  return resp;
+}
