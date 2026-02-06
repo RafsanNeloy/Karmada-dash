@@ -1,5 +1,5 @@
 /*
-Copyright 2025 The Karmada Authors.
+Copyright 2026 The Karmada Authors.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -14,18 +14,15 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import { test } from '@playwright/test';
-import {
-    setupDashboardAuthentication,
-    displayMemberClusterListTest
-} from './test-utils';
+import { karmadaMemberClusterClient } from '../base';
 
-test.beforeEach(async ({ page }) => {
-    await setupDashboardAuthentication(page);
-});
+export interface CSRFToken {
+  token: string;
+}
 
-test('should display member cluster list', async ({ page }) => {
-    await displayMemberClusterListTest(page, {
-        screenshotName: 'debug-member-cluster-list.png'
-    });
-});
+export async function GetCSRFToken(action: string) {
+  const resp = await karmadaMemberClusterClient.get<CSRFToken>(
+    `/csrftoken/${action}`
+  );
+  return resp;
+}

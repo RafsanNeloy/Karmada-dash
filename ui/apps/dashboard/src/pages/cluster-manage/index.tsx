@@ -54,7 +54,7 @@ function getPercentColor(v: number): string {
 const ClusterManagePage = () => {
   const [messageApi, messageContextHolder] = message.useMessage();
   const { data, isLoading, refetch } = useQuery({
-    queryKey: ['GetClusters'],
+    queryKey: ['ClusterManagePage', 'GetClusters'],
     queryFn: async () => {
       const ret = await GetClusters();
       return ret.data;
@@ -75,7 +75,6 @@ const ClusterManagePage = () => {
       key: 'clusterName',
       width: 150,
       render: (_, r) => {
-        r.ready;
         return r.objectMeta.name;
       },
     },

@@ -16,6 +16,7 @@ limitations under the License.
 
 import axios from 'axios';
 import _ from 'lodash';
+import { notification } from 'antd';
 
 let pathPrefix = window.__path_prefix__ || '';
 if (!pathPrefix.startsWith('/')) {
@@ -26,9 +27,14 @@ if (!pathPrefix.endsWith('/')) {
 }
 export const routerBase = pathPrefix;
 const baseURL: string = _.join([pathPrefix, 'api/v1'], '');
+const memberclusterBaseURL: string = pathPrefix;
 
 export const karmadaClient = axios.create({
   baseURL,
+});
+
+export const karmadaMemberClusterClient = axios.create({
+  baseURL: memberclusterBaseURL,
 });
 
 export interface IResponse<Data = {}> {
@@ -122,6 +128,64 @@ export const extractPropagationPolicy = (r: { objectMeta: ObjectMeta }) => {
   }
   return r?.objectMeta?.annotations?.[propagationpolicyKey];
 };
+
+
+// interceptor for karmadaMemberClusterClient
+interface K8sErrStatus {
+  status?: string;
+  message?: string;
+  reason?: string;
+  code?: number;
+  details?: {
+    group?: string;
+    kind?: string;
+  };
+}
+
+interface MemberClusterErrorItem {
+  ErrStatus?: K8sErrStatus;
+}
+
+interface MemberClusterResponse {
+  errors?: MemberClusterErrorItem[];
+}
+
+karmadaMemberClusterClient.interceptors.response.use(
+  (response) => {
+    const data = response.data as MemberClusterResponse | undefined;
+    const errors = data?.errors ?? [];
+
+    if (Array.isArray(errors) && errors.length > 0) {
+      const messages = errors
+        .map((e) => e.ErrStatus?.message)
+        .filter((m): m is string => !!m);
+
+      if (messages.length > 0) {
+        messages.forEach((msg) => {
+          notification.error({
+            message: '成员集群请求失败',
+            description: msg,
+            duration: 5,
+          });
+        });
+      }
+    }
+
+    return response;
+  },
+  (error) => {
+    const status = error?.response?.status;
+    if (status === 403) {
+      notification.error({
+        message: '成员集群权限不足',
+        description: '当前账号没有访问成员集群相关资源的权限（HTTP 403）',
+        duration: 5,
+      });
+    }
+
+    return Promise.reject(error);
+  }
+);
 
 /**
  * Generates a unique key for a policy based on its scope.
