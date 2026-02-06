@@ -131,11 +131,7 @@ const NamespacePage = () => {
                       '删除命名空间成功',
                     ),
                   );
-                  setDeletingNames((prev) => {
-                    const next = new Set(prev);
-                    next.add(r.objectMeta.name);
-                    return next;
-                  });
+                  setDeletingNames((prev) => new Set(prev).add(r.objectMeta.name));
                   await refetch();
                 } else {
                   await messageApi.error(

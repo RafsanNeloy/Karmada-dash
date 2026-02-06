@@ -165,20 +165,15 @@ const ServicePage = () => {
                 name: r.objectMeta.name,
                 namespace: r.objectMeta.namespace,
               });
-              if (ret.code !== 200) {
+              if (ret.code === 200) {
+                setDeletingNames((prev) => new Set(prev).add(`${r.objectMeta.namespace}-${r.objectMeta.name}`));
+              } else {
                 await messageApi.error(
                   i18nInstance.t(
                     '1ed71b1211f5d2ba41e4a23331985c7c',
                     '删除服务失败',
                   ),
                 );
-              }
-              if (ret.code === 200) {
-                setDeletingNames((prev) => {
-                  const next = new Set(prev);
-                  next.add(`${r.objectMeta.namespace}-${r.objectMeta.name}`);
-                  return next;
-                });
               }
               await queryClient.invalidateQueries({
                 queryKey: ['GetServices'],
@@ -210,20 +205,15 @@ const ServicePage = () => {
                 name: r.objectMeta.name,
                 namespace: r.objectMeta.namespace,
               });
-              if (ret.code !== 200) {
+              if (ret.code === 200) {
+                setDeletingNames((prev) => new Set(prev).add(`${r.objectMeta.namespace}-${r.objectMeta.name}`));
+              } else {
                 await messageApi.error(
                   i18nInstance.t(
                     '1ed71b1211f5d2ba41e4a23331985c7c',
                     '删除服务失败',
                   ),
                 );
-              }
-              if (ret.code === 200) {
-                setDeletingNames((prev) => {
-                  const next = new Set(prev);
-                  next.add(`${r.objectMeta.namespace}-${r.objectMeta.name}`);
-                  return next;
-                });
               }
               await queryClient.invalidateQueries({
                 queryKey: ['GetIngress'],

@@ -234,6 +234,11 @@ const ClusterManagePage = () => {
                     return next;
                   });
                   await refetch();
+                  setDeletingNames((prev) => {
+                    const next = new Set(prev);
+                    next.delete(r.objectMeta.name);
+                    return next;
+                  });
                 } else {
                   await messageApi.error(
                     i18nInstance.t(

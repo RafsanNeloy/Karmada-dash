@@ -191,12 +191,18 @@ const WorkloadPage = () => {
                   namespace: r.objectMeta.namespace,
                 });
                 if (ret.code === 200) {
+                  const workloadKey = `${r.objectMeta.namespace}-${r.objectMeta.name}`;
                   setDeletingNames((prev) => {
                     const next = new Set(prev);
-                    next.add(`${r.objectMeta.namespace}-${r.objectMeta.name}`);
+                    next.add(workloadKey);
                     return next;
                   });
                   await refetch();
+                  setDeletingNames((prev) => {
+                    const next = new Set(prev);
+                    next.delete(workloadKey);
+                    return next;
+                  });
                 } else {
                   await messageApi.error(
                     i18nInstance.t('workload-delete-failed-key', '删除工作负载失败')

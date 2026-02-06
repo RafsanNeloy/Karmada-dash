@@ -81,20 +81,15 @@ const ConfigPage = () => {
                 name: r.objectMeta.name,
                 namespace: r.objectMeta.namespace,
               });
-              if (ret.code !== 200) {
+              if (ret.code === 200) {
+                setDeletingNames((prev) => new Set(prev).add(`${r.objectMeta.namespace}-${r.objectMeta.name}`));
+              } else {
                 await messageApi.error(
                   i18nInstance.t(
                     'f8484c9d3de78566f9e255360977f12c',
                     '删除配置失败',
                   ),
                 );
-              }
-              if (ret.code === 200) {
-                setDeletingNames((prev) => {
-                  const next = new Set(prev);
-                  next.add(`${r.objectMeta.namespace}-${r.objectMeta.name}`);
-                  return next;
-                });
               }
               await queryClient.invalidateQueries({
                 queryKey: ['GetConfigMaps'],
@@ -125,20 +120,15 @@ const ConfigPage = () => {
                 name: r.objectMeta.name,
                 namespace: r.objectMeta.namespace,
               });
-              if (ret.code !== 200) {
+              if (ret.code === 200) {
+                setDeletingNames((prev) => new Set(prev).add(`${r.objectMeta.namespace}-${r.objectMeta.name}`));
+              } else {
                 await messageApi.error(
                   i18nInstance.t(
                     '1de397f628eb5943bdb6861ad667ff0a',
                     '删除秘钥失败',
                   ),
                 );
-              }
-              if (ret.code === 200) {
-                setDeletingNames((prev) => {
-                  const next = new Set(prev);
-                  next.add(`${r.objectMeta.namespace}-${r.objectMeta.name}`);
-                  return next;
-                });
               }
               await queryClient.invalidateQueries({
                 queryKey: ['GetSecrets'],

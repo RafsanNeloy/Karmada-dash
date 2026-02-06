@@ -44,17 +44,8 @@ import PropagationPolicyEditorDrawer, {
 import { stringify } from 'yaml';
 import { GetResource } from '@/services/unstructured.ts';
 import { useDebounce } from '@uidotdev/usehooks';
-import { PolicyScope } from '@/services/base.ts';
+import { getPolicyKey, PolicyScope } from '@/services/base.ts';
 import useNamespace from '@/hooks/use-namespace.ts';
-
-const getPolicyKey = (
-  policy: PropagationPolicy | ClusterPropagationPolicy,
-  scope: PolicyScope,
-) => {
-  return scope === PolicyScope.Cluster
-    ? policy.objectMeta.name
-    : `${policy.objectMeta.namespace}-${policy.objectMeta.name}`;
-};
 
 
 const PropagationPolicyManage = () => {
@@ -226,11 +217,8 @@ const PropagationPolicyManage = () => {
                     ),
                   );
                   setDeletingNames((prev) => {
-                    const next = new Set(prev);
                     const key = getPolicyKey(r, filter.policyScope);
-
-                    next.add(key);
-                    return next;
+                    return new Set(prev).add(key);
                   });
                   await refetch();
                 } else {
