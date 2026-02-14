@@ -80,7 +80,7 @@ api:
     #   cpu: 100m
     #   memory: 128Mi
   ## @param api.nodeSelector node selector of the api
-  anodeSelector: { }
+  nodeSelector: { }
   ## @param api.affinity affinity of the api
   affinity: { }
   ## @param api.tolerations tolerations of the api
